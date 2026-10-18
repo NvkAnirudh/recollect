@@ -17,7 +17,10 @@ RUN --mount=type=cache,target=/root/.cache/uv uv sync --frozen --no-dev --no-edi
 
 
 FROM python:3.13-slim AS runtime
-RUN groupadd --system app && useradd --system --gid app --home /app --shell /usr/sbin/nologin app
+# The app runs from its own venv; the base image's pip/setuptools (and their vendored
+# urllib3/msgpack) are unused attack surface and the main source of scanner findings.
+RUN python -m pip uninstall --yes --root-user-action=ignore pip setuptools wheel \
+ && groupadd --system app && useradd --system --gid app --home /app --shell /usr/sbin/nologin app
 WORKDIR /app
 COPY --from=builder --chown=app:app /app/.venv /app/.venv
 ENV PATH="/app/.venv/bin:$PATH" PYTHONUNBUFFERED=1 PORT=8000
