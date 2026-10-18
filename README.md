@@ -10,7 +10,7 @@ on screen, and the caption, and gives you the link back.
 
 | Path | |
 |---|---|
-| [`backend/`](backend/) | FastAPI API, background worker and Slack bot (Python 3.13, uv) |
+| [`backend/`](backend/) | FastAPI API, background worker and Slack bot (Python 3.14, uv) |
 | [`frontend/`](frontend/) | Web app (Next.js, TypeScript) |
 | [`supabase/`](supabase/) | Database migrations and local Supabase config |
 | [`docs/`](docs/) | Design specs, [architecture decisions](docs/adr/), [runbooks](docs/runbooks/) |
