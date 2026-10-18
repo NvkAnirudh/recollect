@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-18
 **Status:** Draft, awaiting review
-**Repo:** `recollect-server` (new). The old `recollect-backend` repo is kept read-only for reference; usable parts are copied over as listed in section 9.
+**Repo:** [`recollect`](https://github.com/NvkAnirudh/recollect), a monorepo with `backend/`, `frontend/` and `supabase/` (see ADR 0001). The old `recollect-backend` repo is kept read-only for reference; usable parts are copied over as listed in section 9.
 
 ## 1. Goal
 
@@ -41,13 +41,13 @@ other workspaces, and migrating old data.
 | Reel fetcher | Keep Bright Data, behind a `Fetcher` interface |
 | Existing data | Start fresh (new Supabase project) |
 | Platforms | Instagram only |
-| Web UI | New minimal repo (`recollect-web`) with its own spec; this spec defines the API it uses |
+| Web UI | Minimal Next.js app in `frontend/` of the same monorepo; it gets its own spec, and this spec defines the API it uses |
 
 ## 3. Architecture
 
 ```
  Phone: Instagram → Share → Slack DM ─┐
- Web app (recollect-web) ─────────────┤
+ Web app (frontend/) ─────────────────┤
                                       ▼
                             ┌──────────────────┐
                             │  api  (FastAPI)  │── Gemini (query parsing, query embedding)
@@ -74,7 +74,8 @@ commands: `api` and `worker`. There is no RabbitMQ, Redis, Qdrant or gateway.
 ## 4. Components
 
 The code is one package, `recollect/`. Each module has a single job and a small
-interface.
+interface. The package lives at `backend/src/recollect/`; the scaffold already provides
+`core/` (config, logging, middleware, errors, security) and `api/main.py`.
 
 | Module | Responsibility | Depends on |
 |---|---|---|
@@ -166,9 +167,9 @@ Times are stored in UTC (`timestamptz`). The user's timezone comes from the
 `X-Timezone` header on web requests and from Slack's `users.info` for Slack
 requests, and is saved on the profile.
 
-## 6. API (contract for `recollect-web`)
+## 6. API (contract for `frontend/`)
 
-All endpoints except `/health` and `/slack/*` need `Authorization: Bearer
+Every path below except `/health` is under `/api/v1`. All endpoints except `/health` and `/slack/*` need `Authorization: Bearer
 <supabase access token>`.
 
 | Method | Path | Body / query | Response |
@@ -290,20 +291,22 @@ adapted where they save time:
 | `shared/auth/dependencies.py` | `recollect/auth.py` | Verify JWTs locally via JWKS instead of calling `getUser()`; remove the `X-User-ID` header path |
 | `services/*/railway.toml`, `Dockerfile` | root `Dockerfile`, `railway.toml` | One image, two start commands |
 
-Layout:
+Layout (monorepo, set up by the scaffold PR):
 
 ```
-recollect-server/
-  recollect/            # package (section 4)
-  supabase/migrations/  # fresh schema (section 8)
-  tests/
-    unit/               # fetcher/gemini/slack mocked
-    integration/        # real Postgres+pgvector (docker), mocked externals
-    eval/               # search quality set: reels fixtures + queries + expected
+recollect/
+  backend/
+    src/recollect/      # package (section 4)
+    tests/{unit,integration,eval}/
+    Dockerfile          # one image; start command chosen per Railway service
+    pyproject.toml      # uv-managed
+  frontend/             # Next.js web app
+  supabase/
+    migrations/         # schema (section 8), one file per change
+    config.toml, seed.sql
   scripts/              # spike + eval runners
-  Dockerfile            # one image; CMD chosen per Railway service
-  pyproject.toml        # uv-managed, proper package (no sys.path hacks)
-  .github/workflows/ci.yml
+  docs/{superpowers/specs,adr,runbooks}/
+  .github/              # CI, security scans, Dependabot, templates
 ```
 
 **Secrets:** nothing is copied from the old repo's tests or scripts, which
@@ -316,13 +319,13 @@ variable and contains no values.
 
 | # | Phase | Done when |
 |---|---|---|
-| 0 | **Skeleton:** package layout, CI (lint + tests), new Supabase project, migrations applied, `.env.example` | CI green on an empty skeleton; schema applied |
+| 0 | **Skeleton:** monorepo scaffold, CI + security workflows, branch protection, baseline migration (pgvector + profiles); hosted Supabase project created | CI green; scaffold PR merged |
 | 1 | **Spike** (throwaway scripts): (a) Gemini on ~10 real reels including ≥4 text-heavy, music-only ones, comparing 1 fps vs a higher fps; (b) Bright Data fetch from a Railway container | On-screen text captured well enough (or OCR is added to scope); chosen Gemini model and fps recorded in this spec |
 | 2 | **Saving pipeline:** API save endpoints, job queue, worker, fetcher, Gemini understanding, thumbnail, indexing, retries | Saving a real reel through the API reaches `ready`; failure paths tested |
 | 3 | **Search:** query parser, `search_reels`, `/search`, eval set | Eval reaches ≥90% top-5 |
 | 4 | **Slack bot:** linking, save from DM, `/recollect` search, completion replies | Share from the phone → found by `/recollect` |
 | 5 | **Deploy:** Railway `api` + `worker`, env, health checks | Phase 4 check passes against production |
-| — | `recollect-web` (separate spec), started after Phase 3 against this API | — |
+| — | `frontend/` web app (separate spec), started after Phase 3 against this API | — |
 
 ## 11. Testing
 

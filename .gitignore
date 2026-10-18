@@ -1,10 +1,27 @@
+# Secrets: only *.example files are committed
 .env
 .env.*
 !.env.example
+
+# Python
 __pycache__/
 *.py[cod]
 .venv/
 .pytest_cache/
 .ruff_cache/
-.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Node / Next.js (frontend/.gitignore has the rest)
+node_modules/
+
+# OS / editors
 .DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# Claude Code local settings
+.claude/settings.local.json
