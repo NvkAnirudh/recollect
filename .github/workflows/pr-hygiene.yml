@@ -1,0 +1,44 @@
+name: PR hygiene
+
+# Enforces docs/process/sdlc.md: every PR links an issue, and code/config changes update CHANGELOG.md.
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  hygiene:
+    name: PR hygiene
+    # Dependabot PRs are tracked by Dependabot itself; a skipped job satisfies the required check.
+    if: github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check linked issue and CHANGELOG
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          BODY: ${{ github.event.pull_request.body }}
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+        run: |
+          fail=0
+          if ! grep -qiE '(close[sd]?|fix(e[sd])?|resolve[sd]?|refs?)[[:space:]]+#[0-9]+' <<<"$BODY"; then
+            echo "::error::PR body must link an issue: 'Closes #<n>', 'Fixes #<n>' or 'Refs #<n>' (docs/process/sdlc.md §3)."
+            fail=1
+          fi
+
+          files=$(gh api "repos/$REPO/pulls/$PR/files" --paginate --jq '.[].filename')
+          needs_changelog=$(grep -vE '^(docs/|.*\.md$)' <<<"$files" || true)
+          if [[ -n "$needs_changelog" ]] && ! grep -qx 'CHANGELOG.md' <<<"$files"; then
+            if [[ ",$LABELS," == *",no-changelog,"* ]]; then
+              echo "::notice::CHANGELOG check skipped by the no-changelog label."
+            else
+              echo "::error::Code/config changed but CHANGELOG.md was not updated (docs/process/sdlc.md §4). Add a line under [Unreleased] or, if justified, the 'no-changelog' label."
+              fail=1
+            fi
+          fi
+          exit "$fail"

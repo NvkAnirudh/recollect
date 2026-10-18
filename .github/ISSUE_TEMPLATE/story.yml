@@ -1,0 +1,23 @@
+name: Story
+description: Smallest shippable slice, delivered in one PR (at most a day). Parent = a Feature.
+labels: [type:story]
+body:
+  - type: input
+    id: parent
+    attributes: { label: Parent feature, description: "#number. Then link this as a sub-issue of it.", placeholder: "#23" }
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes: { label: What }
+    validations: { required: true }
+  - type: textarea
+    id: acceptance
+    attributes: { label: Acceptance criteria, value: "- [ ] " }
+    validations: { required: true }
+  - type: textarea
+    id: docs
+    attributes:
+      label: Docs to update
+      description: "Per docs/process/sdlc.md §4. CHANGELOG.md always; plus API/config/architecture/ADR/spec/runbook as applicable."
+      value: "- [ ] CHANGELOG.md"
+    validations: { required: true }

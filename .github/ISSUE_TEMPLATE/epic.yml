@@ -1,0 +1,17 @@
+name: Epic
+description: A large outcome spanning several features (weeks). Usually one spec phase.
+labels: [type:epic]
+body:
+  - type: textarea
+    id: goal
+    attributes: { label: Goal, description: "The outcome, in one or two sentences." }
+    validations: { required: true }
+  - type: textarea
+    id: success
+    attributes: { label: Success criteria, description: "Checkboxes; how we know the epic is done.", value: "- [ ] " }
+    validations: { required: true }
+  - type: input
+    id: reference
+    attributes: { label: Reference, description: "Spec section or ADR." }
+  - type: markdown
+    attributes: { value: "After creating: add Features as sub-issues, add `area:*` labels, set Phase/Priority on the board." }

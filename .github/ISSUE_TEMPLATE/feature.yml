@@ -1,14 +1,19 @@
 name: Feature
-description: New capability or improvement
-labels: [enhancement]
+description: A capability inside an epic (days). Parent = an Epic.
+labels: [type:feature]
 body:
-  - type: textarea
-    id: problem
-    attributes: { label: Problem, description: "Who needs this and why?" }
+  - type: input
+    id: parent
+    attributes: { label: Parent epic, description: "#number. Then link this as a sub-issue of it.", placeholder: "#17" }
     validations: { required: true }
   - type: textarea
-    id: proposal
-    attributes: { label: Proposed solution }
+    id: outcome
+    attributes: { label: Outcome, description: "Who gets what capability." }
+    validations: { required: true }
   - type: textarea
     id: acceptance
-    attributes: { label: Acceptance criteria, description: "How we'll know it's done." }
+    attributes: { label: Acceptance criteria, value: "- [ ] " }
+    validations: { required: true }
+  - type: input
+    id: reference
+    attributes: { label: Reference, description: "Spec section or ADR." }
