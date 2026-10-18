@@ -5,7 +5,7 @@ description = "Recollect API, worker and Slack bot"
 authors = [
     { name = "Anirudh Nuti", email = "29597936+NvkAnirudh@users.noreply.github.com" }
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = [
     "fastapi>=0.146.0",
     "httpx>=0.28.1",
@@ -31,7 +31,7 @@ dev = [
 
 [tool.ruff]
 line-length = 100
-target-version = "py313"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = [
@@ -52,7 +52,7 @@ select = [
 
 [tool.pyright]
 include = ["src", "tests"]
-pythonVersion = "3.13"
+pythonVersion = "3.14"
 typeCheckingMode = "strict"
 reportMissingTypeStubs = false
 venvPath = "."

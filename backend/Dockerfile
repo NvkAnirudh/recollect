@@ -3,7 +3,7 @@
 #   api:    uvicorn recollect.api.main:app --host 0.0.0.0 --port $PORT
 #   worker: python -m recollect.worker   (added in Phase 2)
 
-FROM python:3.13-slim AS builder
+FROM python:3.14-slim AS builder
 COPY --from=ghcr.io/astral-sh/uv:0.13.1 /uv /usr/local/bin/uv
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never
 WORKDIR /app
@@ -16,7 +16,7 @@ COPY src/ ./src/
 RUN --mount=type=cache,target=/root/.cache/uv uv sync --frozen --no-dev --no-editable
 
 
-FROM python:3.13-slim AS runtime
+FROM python:3.14-slim AS runtime
 # The app runs from its own venv; the base image's pip/setuptools (and their vendored
 # urllib3/msgpack) are unused attack surface and the main source of scanner findings.
 RUN python -m pip uninstall --yes --root-user-action=ignore pip setuptools wheel \

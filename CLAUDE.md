@@ -14,7 +14,7 @@ Single user today; built for multiple users from day one.
 
 | Path | What | Stack |
 |---|---|---|
-| `backend/` | API, worker, Slack bot (one package, `src/recollect/`) | Python 3.13, uv, FastAPI, psycopg 3, structlog, ruff, pyright (strict), pytest |
+| `backend/` | API, worker, Slack bot (one package, `src/recollect/`) | Python 3.14, uv, FastAPI, psycopg 3, structlog, ruff, pyright (strict), pytest |
 | `frontend/` | Web app | Next.js 16 (App Router), TypeScript strict, pnpm, Tailwind 4, vitest, Prettier |
 | `supabase/` | SQL migrations, seed, local stack config | Supabase CLI, Postgres 17 + pgvector |
 | `.github/` | CI, security scans, Dependabot, templates | |
