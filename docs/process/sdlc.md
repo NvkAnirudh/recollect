@@ -53,20 +53,45 @@ gh api -X POST repos/NvkAnirudh/recollect/issues/<parent>/sub_issues -F sub_issu
 
 ## 2. Track: the project board
 
-The **Recollect** GitHub Project (owner `NvkAnirudh`) is the single view of all work.
+**[Recollect project](https://github.com/users/NvkAnirudh/projects/4)** (user project #4, owner
+`NvkAnirudh`, linked to the repo, public) is the single view of all work.
 
 | Field | Values |
 |---|---|
 | Status | Backlog → Ready → In progress → In review → Done |
-| Type | Epic, Feature, Story, Task, Bug, Spike (mirrors the label) |
+| Level | Epic, Feature, Story, Task, Bug, Spike (mirrors the `type:*` label; GitHub reserves the name "Type") |
 | Phase | 0 Foundation · 1 Spike · 2 Ingestion · 3 Search · 4 Slack · 5 Deploy · Web |
 | Priority | P0 (now) · P1 (next) · P2 (later) |
 | Size | XS · S · M · L (stories should be S or smaller) |
 
 Rules:
-- New issues are added to the board automatically. If one isn't: `gh project item-add <project-number> --owner NvkAnirudh --url <issue-url>`.
+- Every issue is on the board, with Level, Phase and Priority set (Size too for stories).
 - Move an item to **In progress** when work starts and to **In review** when its PR opens. Closing the issue (via the merged PR) moves it to **Done**.
 - A parent is closed when all its children are closed.
+
+### CLI cheatsheet
+
+```bash
+# add an issue (prints the item id)
+gh project item-add 4 --owner NvkAnirudh --url https://github.com/NvkAnirudh/recollect/issues/<n> --format json --jq .id
+
+# field and option ids (Status, Level, Phase, Priority, Size)
+gh project field-list 4 --owner NvkAnirudh --format json
+
+# set a single-select field on an item
+gh project item-edit --project-id PVT_kwHOAcOg8M4Bnn-D --id <item-id> \
+  --field-id <field-id> --single-select-option-id <option-id>
+```
+
+The `gh` token needs the `project` scope (`gh auth refresh -h github.com -s project`).
+
+### Set in the GitHub UI (not available through the API)
+
+- **Workflows** (project ⋯ → Workflows): *Auto-add to project* for `repo:NvkAnirudh/recollect is:issue`;
+  *Item closed* → Done and *Pull request merged* → Done (on by default).
+- **Views:** *Board* (layout Board, columns = Status, filter `-level:Epic`), *Roadmap*
+  (Table grouped by Phase, sorted by Priority), *Hierarchy* (Table grouped by Level, with the
+  "Parent issue" and "Sub-issues progress" fields shown).
 
 ## 3. Build: branch → PR → merge
 
