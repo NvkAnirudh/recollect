@@ -86,3 +86,7 @@ jobs:
         with:
           fail-on-severity: high
           comment-summary-in-pr: on-failure
+          # Each exception needs a reason and a revisit trigger. Remove once a fix ships.
+          # GHSA-vfj7-8cjw-p6xm (braces <=3.0.3 DoS, no patched version as of 2026-10-18):
+          #   dev-only, via eslint-config-next > fast-glob; only matches our own lint globs.
+          allow-ghsas: GHSA-vfj7-8cjw-p6xm
