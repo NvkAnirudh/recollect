@@ -1,0 +1,132 @@
+# Recollect evaluation set: 10 public Instagram posts (#19).
+# URLs are canonical (share/tracking query params stripped). No media is committed.
+# Reference phrases were read by hand from frame contact sheets (on-screen) and checked
+# against a Whisper transcript (spoken). They are deliberately distinctive, not exhaustive.
+# `queries` are natural-language searches a user might type; reused by the search eval (#42).
+
+[[reel]]
+id = 1
+url = "https://www.instagram.com/p/Deen2mzEiBS/"
+kind = "carousel"            # 2 images, no video
+category = "text_or_music_only"
+language = "en"
+note = "A Claude prompt shared by an Anthropic engineer (Felix Rieseberg), posted by @therundownai"
+on_screen = []               # images not fetched in this spike (see README)
+spoken = []
+queries = ["claude prompt from anthropic engineer", "felix rieseberg prompt"]
+
+[[reel]]
+id = 2
+url = "https://www.instagram.com/reel/DeeR2JyNrx-/"
+kind = "reel"
+duration_s = 17
+category = "text_or_music_only"
+language = "en"
+note = "Music only; growing on-screen list of backend engineering concepts ('Who's gonna tell vibe coders about...')"
+on_screen = ["Who's gonna tell vibe coders about", "Rate Limiting", "Load Balancing", "Circuit Breakers",
+             "Idempotency", "Saga Pattern", "Dead Letter Queues", "Read Replicas", "CAP Theorem",
+             "Backpressure", "Canary Releases", "Disaster Recovery", "Postmortems"]
+spoken = []
+queries = ["reel listing backend engineering concepts vibe coders should know",
+           "the one with rate limiting circuit breakers and dead letter queues"]
+
+[[reel]]
+id = 3
+url = "https://www.instagram.com/p/DeIY8KminlL/"
+kind = "carousel"            # 16 images, no video
+category = "text_or_music_only"
+language = "en"
+note = "Carousel about being an alpha male, posted by @richdad.tv"
+on_screen = []
+spoken = []
+queries = ["alpha male carousel"]
+
+[[reel]]
+id = 4
+url = "https://www.instagram.com/reel/Dc8Ywv9geVP/"
+kind = "reel"
+duration_s = 20
+category = "text_or_music_only"
+language = "en"
+note = "Song over a couple unwrapping a tower of travel photo-album books (Croatia, Paris, Morocco, Brazil, Italy, Rome)"
+on_screen = ["Mom, dad, why don't we have a big house?", "Croatia", "Paris", "Morocco", "Brazil", "Italy", "Rome"]
+spoken = []                  # lyrics only
+queries = ["travel photo album books reel", "couple with a stack of photo books from every country they visited"]
+
+[[reel]]
+id = 5
+url = "https://www.instagram.com/reel/DeHUbDWPb5f/"
+kind = "reel"
+duration_s = 55
+category = "non_english"
+language = "te"
+note = "AI tip in Telugu: 3 must-watch videos for building with AI (Karpathy on agentic engineering, agent skills)"
+on_screen = ["This is only for those who want to Build something with AI", "Vibe coding to Agentic Engineering",
+             "Andrej Karpathy", "Building great agent skills", "The Missing Manual", "Skill Hell",
+             "The Agent Codes Layer-By-Layer", "post a comment for link"]
+spoken = []                  # Telugu; local Whisper base could not transcribe it
+queries = ["telugu reel about AI videos to watch", "karpathy vibe coding to agentic engineering recommendation"]
+
+[[reel]]
+id = 6
+url = "https://www.instagram.com/reel/DdyGuU6R8AC/"
+kind = "reel"
+duration_s = 180
+category = "non_english"
+language = "hi"
+note = "Hindi rap performance on a talent show stage (Mic Drop), with romanised Hindi lyric captions"
+on_screen = ["POV", "Kya Ho Gaya Kuch Ban Kyu Nhi Paya Tu", "Mic Drop", "Main befikriyon mein aisa baitha reh gaya",
+             "Phir se aadha reh gaya"]
+spoken = ["kya ho gaya"]
+queries = ["hindi rap kya ho gaya kuch ban kyu nahi paya tu", "rapper on mic drop show"]
+
+[[reel]]
+id = 7
+url = "https://www.instagram.com/reel/DeQq-4TChaa/"
+kind = "reel"
+duration_s = 86
+category = "spoken_english"
+language = "en"
+note = "Six scaling problems every Python/Java/JavaScript app hits, with diagrams (@erictechpro)"
+on_screen = ["Python", "Java", "JavaScript", "cache", "database index", "sharding", "Server sent events",
+             "message queue", "CQRS", "retries", "circuit breaker"]
+spoken = ["Python, Java, or JavaScript", "six problems", "database index", "CQRS", "circuit breaker"]
+queries = ["six problems your app will run into python java javascript", "reel explaining CQRS and circuit breakers"]
+
+[[reel]]
+id = 8
+url = "https://www.instagram.com/reel/DdshHpFpqdi/"
+kind = "reel"
+duration_s = 111
+category = "spoken_english"
+language = "en"
+note = "Claude Code design tips: tools to make apps not look generic (cartoon characters over Minecraft footage)"
+on_screen = ["10K", "Taste Skill", "The Anti-Slop Frontend Framework for AI Agents", "web-design-guidelines",
+             "awesome-design-md", "Image To Code", "GitHub"]
+spoken = ["Claude code", "10k", "built in 2006"]
+queries = ["claude code design tools so my app doesn't look generic", "taste skill awesome design md"]
+
+[[reel]]
+id = 9
+url = "https://www.instagram.com/reel/DeNSNdCMxWb/"
+kind = "reel"
+duration_s = 38
+category = "spoken_english"
+language = "en"
+note = "Four Claude Code plugins to install before vibe coding"
+on_screen = ["4 PLUGINS TO INSTALL FIRST", "PONYTAIL", "THE LEAST CODE THAT WORKS", "HALF THE CODE",
+             "20% FEWER TOKENS", "OMNIROUTE", "150 FREE PROVIDERS", "GRAPHIFY", "AGENT SKILLS", "Addy Osmani", "25 SKILLS"]
+spoken = ["four plugins", "ponytail", "least code that actually works"]
+queries = ["four claude code plugins to install before vibe coding", "ponytail omniroute graphify plugin reel"]
+
+[[reel]]
+id = 10
+url = "https://www.instagram.com/reel/DeLIcSWM9Fr/"
+kind = "reel"
+duration_s = 32
+category = "spoken_english"
+language = "en"
+note = "Supplement stack explained: creatine, vitamin D, fish oil, magnesium"
+on_screen = ["If you take creatine", "vitamin D", "fish oil, and magnesium", "Follow for more"]
+spoken = ["creatine", "vitamin D", "fish oil", "magnesium", "brain fog", "fall asleep faster"]
+queries = ["supplements reel creatine vitamin d fish oil magnesium", "gym guy explaining supplement stack"]

@@ -25,3 +25,7 @@ node_modules/
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# Spike scratch output (never commit media or raw model output)
+.spike-media/
+scripts/.spike-results/
