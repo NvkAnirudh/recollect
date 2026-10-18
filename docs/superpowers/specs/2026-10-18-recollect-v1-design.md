@@ -37,7 +37,7 @@ other workspaces, and migrating old data.
 |---|---|
 | Hosting | Fully cloud: Railway (Python services), Supabase (Postgres + Auth + Storage) |
 | Saving from phone | Slack bot in v1 (share reel → DM the bot) |
-| Content understanding | Gemini, one multimodal call per reel (transcript + on-screen text + visuals). No separate OCR unless the Phase 1 spike shows it's needed |
+| Content understanding | Gemini, one multimodal call per reel (transcript + on-screen text + visuals): `gemini-3.8-flash` at 1 fps with `gemini-3.5-flash-lite` as fallback; no separate OCR (Phase 1 spike, ADR 0006) |
 | Reel fetcher | Keep Bright Data, behind a `Fetcher` interface |
 | Existing data | Start fresh (new Supabase project) |
 | Platforms | Instagram only |
@@ -348,7 +348,7 @@ variable and contains no values.
 | Risk | Mitigation |
 |---|---|
 | Bright Data breaks or gets expensive | `Fetcher` interface; Apify or yt-dlp+proxy can be dropped in |
-| Gemini misses brief on-screen text | Phase 1 spike; raise fps or add an OCR pass |
+| Gemini misses brief on-screen text | Spike #20: 97–98% on-screen recall at 1 fps, no OCR needed (ADR 0006). Re-run the eval when changing model/fps |
 | Instagram CDN URLs expire before processing | Fetch and process in the same job step, and re-fetch on retry |
-| Gemini model names or prices change | Model IDs in config, pinned after the spike |
+| Gemini model names or prices change | Model IDs and fps in config (ADR 0006); 3.8-flash price doubles on 2027-01-01 |
 | Slack requires a 3 s ack | Handlers only write to the DB and enqueue; all slow work happens in the worker |

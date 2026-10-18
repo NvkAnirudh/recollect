@@ -1,0 +1,6 @@
+# Repo-wide ruff config for Python outside backend/ (e.g. scripts/): same rules as the backend.
+extend = "backend/pyproject.toml"
+
+[lint.extend-per-file-ignores]
+# Dev-machine scripts: they shell out to local tools (yt-dlp) and spikes record any failure.
+"scripts/**" = ["S603", "S607", "BLE001"]

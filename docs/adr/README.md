@@ -19,3 +19,4 @@ Date: YYYY-MM-DD · Status: Proposed | Accepted | Superseded by NNNN
 | [0003](0003-postgres-job-queue.md) | Postgres table as the job queue (no RabbitMQ) |
 | [0004](0004-public-repo-security-baseline.md) | Public repo and the security baseline it enables |
 | [0005](0005-sdlc-process.md) | SDLC process: issue hierarchy, docs with every change, rules for all agents |
+| [0006](0006-gemini-video-understanding.md) | Gemini 3.8 Flash at 1 fps for reel understanding, Flash-Lite fallback, no OCR |
