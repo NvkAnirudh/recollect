@@ -8,6 +8,7 @@ All notable changes to Recollect are recorded here, in the same PR as the change
 ## [Unreleased]
 
 ### Added
+- Gemini video-understanding spike: script, results and decision. `gemini-3.8-flash` at 1 fps with a Flash-Lite fallback; no OCR pass needed (ADR 0006) ([#20](https://github.com/NvkAnirudh/recollect/issues/20))
 - Evaluation set of 10 public Instagram posts (reels, carousels, Telugu/Hindi, music-only) with hand-checked on-screen and spoken reference phrases and sample search queries ([#19](https://github.com/NvkAnirudh/recollect/issues/19))
 - Recollect GitHub Project board (Status, Level, Phase, Priority, Size) with the full backlog; board usage and CLI cheatsheet in the SDLC guide ([#10](https://github.com/NvkAnirudh/recollect/issues/10))
 - SDLC process: Epic → Feature → Story issues with sub-issues, a project board, docs-with-every-change rule, `AGENTS.md` for all AI agents, and a PR hygiene check requiring a linked issue and CHANGELOG entry ([#9](https://github.com/NvkAnirudh/recollect/issues/9))
