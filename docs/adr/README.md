@@ -18,3 +18,4 @@ Date: YYYY-MM-DD · Status: Proposed | Accepted | Superseded by NNNN
 | [0002](0002-supabase-sql-migrations.md) | Supabase for Postgres/Auth/Storage, plain SQL migrations, psycopg |
 | [0003](0003-postgres-job-queue.md) | Postgres table as the job queue (no RabbitMQ) |
 | [0004](0004-public-repo-security-baseline.md) | Public repo and the security baseline it enables |
+| [0005](0005-sdlc-process.md) | SDLC process: issue hierarchy, docs with every change, rules for all agents |
