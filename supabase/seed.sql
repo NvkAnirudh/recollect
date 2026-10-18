@@ -1,0 +1,1 @@
+-- Local development seed data (runs on `supabase db reset`). Never used in production.

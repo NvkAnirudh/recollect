@@ -1,0 +1,14 @@
+name: Feature
+description: New capability or improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes: { label: Problem, description: "Who needs this and why?" }
+    validations: { required: true }
+  - type: textarea
+    id: proposal
+    attributes: { label: Proposed solution }
+  - type: textarea
+    id: acceptance
+    attributes: { label: Acceptance criteria, description: "How we'll know it's done." }

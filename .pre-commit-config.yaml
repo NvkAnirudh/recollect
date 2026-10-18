@@ -1,0 +1,56 @@
+# Install once: `make setup` (runs `pre-commit install`). Runs on staged files at commit time.
+# CI re-runs the same checks, so skipping hooks locally only delays the failure.
+default_install_hook_types: [pre-commit, commit-msg]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: no-commit-to-branch # main only changes through PRs
+        args: [--branch, main]
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: check-toml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.1
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.12
+    hooks:
+      - id: actionlint
+
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.4.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: [--strict, feat, fix, docs, refactor, perf, test, build, ci, chore, revert, security]
+
+  - repo: local
+    hooks:
+      - id: frontend-prettier
+        name: prettier (frontend)
+        language: system
+        entry: bash -c 'cd frontend && pnpm exec prettier --write --ignore-unknown "${@#frontend/}"' --
+        files: ^frontend/
+        pass_filenames: true
+      - id: frontend-eslint
+        name: eslint (frontend)
+        language: system
+        entry: bash -c 'cd frontend && pnpm exec eslint --max-warnings=0 "${@#frontend/}"' --
+        files: ^frontend/.*\.(ts|tsx|js|mjs)$
