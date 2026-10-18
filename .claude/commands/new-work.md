@@ -17,5 +17,6 @@ Follow `docs/process/sdlc.md` §1–2:
    before creating more than 3 issues.
 4. Create them with `gh issue create`, then link each to its parent:
    `gh api -X POST repos/NvkAnirudh/recollect/issues/<parent>/sub_issues -F sub_issue_id=$(gh api repos/NvkAnirudh/recollect/issues/<child> --jq .id)`.
-5. Make sure each is on the Recollect project board, with Type, Phase and Priority set.
+5. Add each to the Recollect board (project 4) and set Level, Phase and Priority (Size for stories),
+   using the CLI cheatsheet in sdlc.md §2.
 6. Report the created issue numbers and where they sit in the hierarchy.

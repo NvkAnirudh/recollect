@@ -8,6 +8,7 @@ All notable changes to Recollect are recorded here, in the same PR as the change
 ## [Unreleased]
 
 ### Added
+- Recollect GitHub Project board (Status, Level, Phase, Priority, Size) with the full backlog; board usage and CLI cheatsheet in the SDLC guide ([#10](https://github.com/NvkAnirudh/recollect/issues/10))
 - SDLC process: Epic → Feature → Story issues with sub-issues, a project board, docs-with-every-change rule, `AGENTS.md` for all AI agents, and a PR hygiene check requiring a linked issue and CHANGELOG entry ([#9](https://github.com/NvkAnirudh/recollect/issues/9))
 - Documentation index, architecture overview, API and configuration references, and the CI and security runbook ([#9](https://github.com/NvkAnirudh/recollect/issues/9))
 - Monorepo scaffold: FastAPI backend with Supabase JWT auth, `/health` and `/api/v1/me`; Next.js frontend with typed API client; Supabase baseline migration (pgvector, `profiles` with RLS); CI, security scanning, pre-commit hooks, Dependabot, ADRs 0001–0004 ([#2](https://github.com/NvkAnirudh/recollect/pull/2))
